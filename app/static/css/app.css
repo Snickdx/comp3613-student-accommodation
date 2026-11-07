@@ -1,0 +1,529 @@
+:root {
+  --brand-name: "NestLink";
+  --brand-bg: #1a3328;
+  --brand-surface: #e8f0eb;
+  --brand-ink: #14241c;
+  --brand-muted: #5d7266;
+  --brand-accent: #4f8fd8;
+  --brand-accent-ink: #0b1a2c;
+  --brand-accent-2: #7a9e6e;
+  --brand-sidebar: #1a3328;
+  --brand-sidebar-text: #c5d8cc;
+  --brand-font-display: "Bricolage Grotesque", "Segoe UI", sans-serif;
+  --brand-font-body: "Manrope", "Segoe UI", sans-serif;
+  --brand-radius: 0.45rem;
+  --pane-line: color-mix(in srgb, var(--brand-sidebar-text) 22%, transparent);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--brand-font-body);
+  color: var(--brand-ink);
+  background: var(--brand-bg);
+}
+
+a {
+  color: inherit;
+}
+
+.brand-wordmark {
+  font-family: var(--brand-font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+/* —— Window-pane motif (2×2 mullions) —— */
+.pane-grid {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid var(--pane-line);
+  border-radius: var(--brand-radius);
+  background:
+    linear-gradient(var(--pane-line), var(--pane-line)) center / 1px 100% no-repeat,
+    linear-gradient(var(--pane-line), var(--pane-line)) center / 100% 1px no-repeat;
+  animation: grid-fade 1.2s ease-out both;
+}
+
+.pane-grid--main {
+  right: clamp(-6rem, -4vw, -1rem);
+  top: 50%;
+  width: min(54vw, 640px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  animation-name: grid-fade-center;
+}
+
+.pane-grid--main::before {
+  /* one pane quietly tinted, like a lit window */
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  background: color-mix(in srgb, var(--brand-accent) 14%, transparent);
+  border-radius: 0 var(--brand-radius) 0 0;
+}
+
+.pane-grid--main::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: color-mix(in srgb, var(--brand-accent-2) 12%, transparent);
+  border-radius: 0 0 0 var(--brand-radius);
+}
+
+.pane-grid--small {
+  left: clamp(1rem, 6vw, 5rem);
+  bottom: 12%;
+  width: clamp(5rem, 14vw, 10rem);
+  aspect-ratio: 1;
+  animation-delay: 0.25s;
+}
+
+@keyframes grid-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes grid-fade-center {
+  from { opacity: 0; transform: translateY(-50%) scale(0.985); }
+  to { opacity: 1; transform: translateY(-50%) scale(1); }
+}
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* —— Landing —— */
+.landing {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  color: var(--brand-surface);
+  background: var(--brand-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-nav,
+.landing-hero,
+.landing-foot {
+  position: relative;
+  z-index: 1;
+}
+
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem clamp(1.25rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--pane-line);
+}
+
+.landing-nav .brand-wordmark {
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  color: var(--brand-surface);
+  text-decoration: none;
+}
+
+.landing-nav-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.landing-hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 8vh, 5rem) clamp(1.25rem, 4vw, 3rem) 3rem;
+  max-width: 40rem;
+  animation: hero-rise 0.8s ease-out both;
+}
+
+.landing-kicker {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--brand-accent-2);
+  margin: 0 0 1rem;
+}
+
+.landing-hero .brand-wordmark {
+  font-size: clamp(3.2rem, 10vw, 5.8rem);
+  line-height: 0.92;
+  margin: 0 0 1.1rem;
+  color: #f7fafc;
+}
+
+.landing-lead {
+  font-size: clamp(1.05rem, 2.2vw, 1.22rem);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--brand-surface) 80%, transparent);
+  margin: 0 0 2rem;
+  max-width: 30rem;
+}
+
+.landing-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn-landing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--brand-radius);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-landing:hover {
+  transform: translateY(-2px);
+}
+
+.btn-landing-primary {
+  background: var(--brand-accent);
+  color: var(--brand-accent-ink);
+}
+
+.btn-landing-primary:hover {
+  background: color-mix(in srgb, var(--brand-accent) 85%, #fff);
+  color: var(--brand-accent-ink);
+}
+
+.btn-landing-ghost {
+  background: transparent;
+  color: var(--brand-sidebar-text);
+  border-color: color-mix(in srgb, var(--brand-sidebar-text) 40%, transparent);
+}
+
+.btn-landing-ghost:hover {
+  border-color: var(--brand-surface);
+  color: var(--brand-surface);
+}
+
+.landing-foot {
+  padding: 1.1rem clamp(1.25rem, 4vw, 3rem) 1.5rem;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--brand-sidebar-text) 70%, transparent);
+  border-top: 1px solid var(--pane-line);
+}
+
+.landing-foot code {
+  color: var(--brand-surface);
+  font-size: 0.78rem;
+  background: color-mix(in srgb, var(--brand-sidebar-text) 12%, transparent);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+}
+
+.landing-foot .sep {
+  opacity: 0.45;
+  margin: 0 0.3rem;
+}
+
+/* —— Auth —— */
+.auth-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--brand-bg);
+}
+
+.auth-shell .pane-grid--main {
+  width: min(80vw, 560px);
+  right: auto;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation-name: grid-fade-auth;
+}
+
+@keyframes grid-fade-auth {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.auth-panel {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 100%);
+  background: var(--brand-surface);
+  color: var(--brand-ink);
+  border-radius: var(--brand-radius);
+  padding: 2rem 1.75rem;
+  border: 1px solid color-mix(in srgb, var(--brand-ink) 12%, transparent);
+  animation: hero-rise 0.6s ease-out both;
+}
+
+.auth-panel .brand-wordmark {
+  font-size: 1.7rem;
+  margin-bottom: 0.2rem;
+  color: var(--brand-ink);
+}
+
+.auth-panel .auth-tagline {
+  color: var(--brand-muted);
+  margin-bottom: 1.5rem;
+}
+
+.auth-panel .form-control {
+  border-radius: var(--brand-radius);
+  border-color: color-mix(in srgb, var(--brand-ink) 22%, transparent);
+  background: #f6faf7;
+}
+
+.auth-panel .form-control:focus {
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--brand-accent) 28%, transparent);
+}
+
+.auth-panel .btn {
+  border-radius: var(--brand-radius);
+}
+
+.auth-panel .btn-primary {
+  background: var(--brand-accent);
+  border-color: var(--brand-accent);
+  color: var(--brand-accent-ink);
+  font-weight: 700;
+}
+
+.auth-panel .btn-primary:hover {
+  background: color-mix(in srgb, var(--brand-accent) 85%, #000);
+  border-color: color-mix(in srgb, var(--brand-accent) 85%, #000);
+  color: var(--brand-accent-ink);
+}
+
+.auth-panel .btn-outline-secondary {
+  color: var(--brand-ink);
+  border-color: color-mix(in srgb, var(--brand-ink) 25%, transparent);
+}
+
+.auth-panel .btn-outline-secondary:hover {
+  background: color-mix(in srgb, var(--brand-ink) 8%, transparent);
+  color: var(--brand-ink);
+}
+
+.auth-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--brand-muted);
+  text-decoration: none;
+}
+
+.auth-back:hover {
+  color: var(--brand-accent);
+}
+
+/* —— App shell —— */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--brand-surface);
+  color: var(--brand-ink);
+}
+
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem clamp(1rem, 3vw, 2rem);
+  min-height: 2.6rem;
+  background: var(--brand-sidebar);
+  color: var(--brand-sidebar-text);
+  border-bottom: 1px solid var(--pane-line);
+}
+
+.app-topbar .brand-wordmark {
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--brand-surface);
+}
+
+.app-topnav {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.app-topnav a {
+  text-decoration: none;
+  color: var(--brand-sidebar-text);
+  padding-bottom: 1px;
+  border-bottom: 1.5px solid transparent;
+}
+
+.app-topnav a:hover,
+.app-topnav a.is-active {
+  color: var(--brand-surface);
+  border-bottom-color: var(--brand-accent);
+}
+
+.app-topnav .app-user {
+  color: var(--brand-accent-2);
+  font-weight: 700;
+}
+
+.app-main {
+  flex: 1;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  animation: hero-rise 0.45s ease-out both;
+}
+
+.app-main h1 {
+  font-family: var(--brand-font-display);
+  letter-spacing: -0.03em;
+  margin: 0 0 0.5rem;
+}
+
+.app-main p {
+  color: var(--brand-muted);
+  margin: 0 0 1.25rem;
+  max-width: 40rem;
+}
+
+.app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.app-actions a {
+  display: inline-flex;
+  padding: 0.6rem 1rem;
+  border-radius: var(--brand-radius);
+  text-decoration: none;
+  font-weight: 600;
+  background: var(--brand-ink);
+  color: var(--brand-surface);
+}
+
+.app-actions a:hover {
+  background: color-mix(in srgb, var(--brand-ink) 82%, var(--brand-accent));
+}
+
+.app-actions a.secondary {
+  background: transparent;
+  color: var(--brand-ink);
+  border: 1px solid color-mix(in srgb, var(--brand-ink) 25%, transparent);
+}
+
+/* —— Ops config —— */
+.cfg-body {
+  background: var(--brand-bg);
+  color: var(--brand-surface);
+  min-height: 100vh;
+}
+
+.cfg-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.cfg-card {
+  background: color-mix(in srgb, var(--brand-sidebar-text) 8%, var(--brand-bg));
+  border: 1px solid var(--pane-line);
+  border-radius: var(--brand-radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.cfg-card h2 {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: var(--brand-accent-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--brand-font-display);
+}
+
+.cfg-muted {
+  color: color-mix(in srgb, var(--brand-sidebar-text) 75%, transparent);
+}
+
+.badge-ok { background: #3d7a56; }
+.badge-bad { background: #b4443f; }
+
+table.cfg td,
+table.cfg th {
+  border-color: var(--pane-line);
+  vertical-align: top;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.btn-row form {
+  display: inline-block;
+  margin: 0.25rem 0.35rem 0.25rem 0;
+}
+
+.cfg-wrap .form-control,
+.cfg-wrap .form-select {
+  background: var(--brand-bg);
+  border-color: var(--pane-line);
+  color: var(--brand-surface);
+  border-radius: var(--brand-radius);
+}
+
+.cfg-wrap .form-control:focus,
+.cfg-wrap .form-select:focus {
+  background: var(--brand-bg);
+  border-color: var(--brand-accent);
+  color: var(--brand-surface);
+  box-shadow: none;
+}
+
+.cfg-wrap .alert {
+  border: none;
+}
+
+/* —— Reduced motion —— */
+@media (prefers-reduced-motion: reduce) {
+  .pane-grid,
+  .landing-hero,
+  .auth-panel,
+  .app-main {
+    animation: none;
+  }
+  .btn-landing:hover {
+    transform: none;
+  }
+}

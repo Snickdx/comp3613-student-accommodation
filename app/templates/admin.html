@@ -1,0 +1,13 @@
+{% extends "authenticated-base.html" %}
+{% block title %}Admin · NestLink{% endblock %}
+
+{% block subpage_content %}
+<h1>Admin</h1>
+<p>
+  Review pending listings and verify or reject them through the API.
+</p>
+<div class="app-actions">
+  <a href="/docs">Open API docs</a>
+  <a class="secondary" href="/api/admin/listings">All listings</a>
+</div>
+{% endblock %}

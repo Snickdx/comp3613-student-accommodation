@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}NestLink{% endblock %}
+
+{% block content %}
+<div class="landing">
+  <div class="pane-grid pane-grid--main" aria-hidden="true"></div>
+  <div class="pane-grid pane-grid--small" aria-hidden="true"></div>
+
+  <header class="landing-nav">
+    <a class="brand-wordmark" href="{{ url_for('index_view') }}">NestLink</a>
+    <div class="landing-nav-actions">
+      {% if user_logged_in %}
+      <a class="btn-landing btn-landing-ghost" href="{{ app_home }}">Open app</a>
+      <a class="btn-landing btn-landing-ghost" href="{{ url_for('logout') }}">Sign out</a>
+      {% else %}
+      <a class="btn-landing btn-landing-ghost" href="{{ url_for('login_view') }}">Sign in</a>
+      <a class="btn-landing btn-landing-primary" href="{{ url_for('register_view') }}">Join</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="landing-hero">
+    <p class="landing-kicker">Student housing</p>
+    <h1 class="brand-wordmark">NestLink</h1>
+    <p class="landing-lead">
+      Find campus housing through trusted referrals — verified listings from landlords near you,
+      and a direct line to ask before you move in.
+    </p>
+    <div class="landing-cta">
+      {% if user_logged_in %}
+      <a class="btn-landing btn-landing-primary" href="{{ app_home }}">Continue</a>
+      {% else %}
+      <a class="btn-landing btn-landing-primary" href="{{ url_for('register_view') }}">Find housing</a>
+      <a class="btn-landing btn-landing-ghost" href="{{ url_for('login_view') }}">Sign in</a>
+      {% endif %}
+    </div>
+  </main>
+
+  <footer class="landing-foot">
+    After <code>python manage.py init</code>:
+    <code>admin</code> / <code>admin-dev</code><span class="sep">·</span>
+    <code>student</code> / <code>stud-dev</code><span class="sep">·</span>
+    <code>incoming</code> / <code>stud-dev</code><span class="sep">·</span>
+    <code>landlord</code> / <code>land-dev</code><span class="sep">·</span>
+    <code>landlord2</code> / <code>land-dev</code>
+  </footer>
+</div>
+{% endblock %}
